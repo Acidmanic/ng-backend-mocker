@@ -1,27 +1,123 @@
-# NgBackendMocker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.6.
+About
+=================
 
-## Development server
+Ng Backend Mocker, is a lightweight api mocker for local test and development of angular applications. 
+It adds an HttpInterceptor tou your HttpClient interceptors, then it linda hijacks the http call and responds it with appropriate Response.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+Features
+-------------
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    * It Helps for UI testing and development without being obligated to have a test-backend server or a separated mocker for backend.
+    * It can be enabled or disabled with environment object.
+    * It will catch requests based on the request path and method.
 
-## Build
+How to get
+--------------
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+```bash
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    npm i ng-backend-mocker
 
-## Running end-to-end tests
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+How to use
+-------------
+
+For this to work, you should:
+
+    1. install the npm package.
+    2. import the NgBackendMockerModule, at your appModule.
+    3. call NgBackendMockerModule.forRoot() method passing an object which contains a boolean property named __mockBackend__.
+    4. implement the interface ```IBackendMockDataProvider``` and return an array of ```ResponseCheckpoint```s.
+    5. in your appModule, provide your implementation so it can be injected in as ```IBackendMockDataProvider```. 
+
+
+    * A ```IBackendMockDataProvider```, is an interface with one method, which returns an array of 
+    ```ResponseCheckpoint```. This is the way you tell the library which urls must be hijacked and how it should respond to them.
+    * A ```ResponseCheckpoint```, is a data object, which keeps information like request-path, request-method, response-body ant etc.
+    * The object being passed to NgBackendMockerModule.forRoot() method, can be any object. If this object is not null and it contains a boolean property named __mockBackend__ with the value 'True', it will enable the library. You can use your Environment object, to use this only with certain environments. 
+
+
+__AppModule__
+
+
+```typescript
+
+    @NgModule({
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        // Importing the NgBackendMockerModule
+        // passing the 'environment' object to the library.
+        NgBackendMockerModule.forRoot(environment)
+    ],
+    providers: [
+        {
+        // Providing an implementation for IBackendMockDataProvider
+        provide:'IBackendMockDataProvider',
+        useClass:BackendMockData
+        }
+    ],
+    bootstrap: [AppComponent]
+    })
+    export class AppModule { }
+
+```
+
+__Implementation of IBackendMockDataProvider__
+
+
+
+```typescript
+
+    @Injectable()
+    export class BackendMockData implements IBackendMockDataProvider{
+
+        getAllInteractions(): ResponseCheckPoint[] {
+            
+            return [
+                {
+                    method:'GET',
+                    path:'/public/v2/posts',
+                    responseBody:{valid:true},
+                    responseCode:200,
+                    responseHeaders: new HttpHeaders()
+                }
+            ];
+        }
+
+    }
+
+```
+
+__Environment.dev.ts__
+
+
+
+```typescript
+
+    export const environment = {
+        production: false,
+        mockBackend:true
+    };
+
+```
+
+
+Thanks
+========
+
+I hope it save's you some time. good luck.
+
+
+
+Mani
+(acidmanic.moayedi@gmail.com)
