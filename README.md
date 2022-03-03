@@ -9,9 +9,9 @@ It adds an HttpInterceptor tou your HttpClient interceptors, then it kinda hijac
 Features
 -------------
 
-* It Helps for UI testing and development without being obligated to have a test-backend server or a separated mocker for backend.
-* It can be enabled or disabled with environment object.
-* It will catch requests based on the request path and method.
+ * It Helps for UI testing and development without being obligated to have a test-backend server or a separated mocker for backend.
+ * It can be enabled or disabled with environment object.
+ * It will catch requests based on the request path and method.
 
 How to get
 --------------
@@ -42,10 +42,10 @@ __Notes:__
 
 
 
-* A ```IBackendMockDataProvider```, is an interface with one method, which returns an array of 
+ * A ```IBackendMockDataProvider```, is an interface with one method, which returns an array of 
     ```ResponseCheckpoint```. This is the way you tell the library which urls must be hijacked and how it should respond to them.
-* A ```ResponseCheckpoint```, is a data object, which keeps information like request-path, request-method, response-body ant etc.
-* The object being passed to NgBackendMockerModule.forRoot() method, can be any object. If this object is not null and it contains a boolean property named __mockBackend__ with the value 'True', it will enable the library. You can use your Environment object, to use this only with certain environments. 
+ * A ```ResponseCheckpoint```, is a data object, which keeps information like request-path, request-method, response-body ant etc.
+ * The object being passed to NgBackendMockerModule.forRoot() method, can be any object. If this object is not null and it contains a boolean property named __mockBackend__ with the value 'True', it will enable the library. You can use your Environment object, to use this only with certain environments. 
 
 
 __AppModule__
