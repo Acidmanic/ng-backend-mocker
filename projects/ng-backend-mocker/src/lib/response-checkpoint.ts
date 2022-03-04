@@ -28,7 +28,7 @@ export class ResponseCheckPoint {
         this.responseBody = null;
         this.responseCode = 200;
         this.responseHeaders = new HttpHeaders();
-        this.requestSelector = this.methodAndPathSelector;
+        this.requestSelector = (req: HttpRequest<any>, rcp: ResponseCheckPoint) => true;
     }
 
     public withMethod(method: string): ResponseCheckPoint {
@@ -70,9 +70,17 @@ export class ResponseCheckPoint {
     }
 
 
-    private methodAndPathSelector(req: HttpRequest<any>, rcp: ResponseCheckPoint): boolean {
+    public selectByPathAndMethod(): ResponseCheckPoint {
 
-        return req.url == rcp.path && req.method.toLowerCase() == rcp.method.toLowerCase();
+        this.requestSelector = (req: HttpRequest<any>, rcp: ResponseCheckPoint) =>
+            req.url == rcp.path && req.method.toLowerCase() == rcp.method.toLowerCase();
+        return this;
+    }
+
+    public selectAll():ResponseCheckPoint{
+
+        this.requestSelector = (req: HttpRequest<any>, rcp: ResponseCheckPoint) => true;
+        return this;
     }
 
     public accepts(req: HttpRequest<any>): boolean {
