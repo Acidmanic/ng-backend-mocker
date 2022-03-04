@@ -89,13 +89,11 @@ __Implementation of IBackendMockDataProvider__
         getAllInteractions(): ResponseCheckPoint[] {
             
             return [
-                {
-                    method:'GET',
-                    path:'/public/v2/posts',
-                    responseBody:{valid:true},
-                    responseCode:200,
-                    responseHeaders: new HttpHeaders()
-                }
+                new ResponseCheckPoint()
+                .withPath('/public/v2/posts')
+                .withBody({ foo: 'bar' })
+                .withHeader('content-type', 'application/json')
+                .selectByPathAndMethod()
             ];
         }
 
