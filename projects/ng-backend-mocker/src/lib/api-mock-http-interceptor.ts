@@ -29,7 +29,7 @@ export class ApiMockHttpInterceptor implements HttpInterceptor {
 
             const int = interactions[key];
 
-            if (int.path == req.url && int.method == req.method) {
+            if (int.accepts(req)) {
 
                 var handler = new Subject<HttpEvent<any>>();
 
