@@ -28,7 +28,7 @@ export class ResponseCheckPoint {
         this.responseBody = null;
         this.responseCode = 200;
         this.responseHeaders = new HttpHeaders();
-        this.requestSelector = (req: HttpRequest<any>, rcp: ResponseCheckPoint) => true;
+        this.selectByPathAndMethod();
     }
 
     public withMethod(method: string): ResponseCheckPoint {

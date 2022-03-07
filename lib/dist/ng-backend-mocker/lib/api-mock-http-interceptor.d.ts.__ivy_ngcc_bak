@@ -1,0 +1,10 @@
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { IBackendMockDataProvider } from "./ibackend-mockdata-provider";
+export declare class ApiMockHttpInterceptor implements HttpInterceptor {
+    private backend;
+    private environment;
+    constructor(backend: IBackendMockDataProvider, environment: any);
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>;
+    private noMock;
+}
