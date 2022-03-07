@@ -16,7 +16,7 @@ import { NgBackendMockerModule } from 'ng-backend-mocker';
     HttpClientModule,
     // Importing the NgBackendMockerModule
     // passing the 'environment' object to the library.
-    NgBackendMockerModule.forRoot(environment)
+    NgBackendMockerModule
   ],
   providers: [
     {

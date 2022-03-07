@@ -1,5 +1,5 @@
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
-import { Inject, Injectable } from "@angular/core";
+import { Inject, Injectable, Optional } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { IBackendMockDataProvider } from "./ibackend-mockdata-provider";
 
@@ -10,7 +10,7 @@ export class ApiMockHttpInterceptor implements HttpInterceptor {
 
     constructor(
         @Inject('IBackendMockDataProvider') private backend: IBackendMockDataProvider,
-        @Inject('env') private environment
+        @Optional() @Inject('env') private environment
     ) {
         console.log('Environment: ',environment);
     }

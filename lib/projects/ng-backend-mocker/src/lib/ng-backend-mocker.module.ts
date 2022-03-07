@@ -22,7 +22,7 @@ import { IBackendMockDataProvider } from './ibackend-mockdata-provider'
 })
 export class NgBackendMockerModule {
 
-  public static forRoot(environment: any): ModuleWithProviders<any> {
+  public static forRoot(environment?: any): ModuleWithProviders<any> {
 
     return {
       ngModule: NgBackendMockerModule,
