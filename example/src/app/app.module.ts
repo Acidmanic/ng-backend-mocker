@@ -4,27 +4,24 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BackendMockData } from './backend-mock-data';
-import { environment } from 'src/environments/environment';
 import { NgBackendMockerModule } from 'ng-backend-mocker';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
     // Importing the NgBackendMockerModule
     // passing the 'environment' object to the library.
-    NgBackendMockerModule
+    NgBackendMockerModule,
   ],
   providers: [
     {
       // Providing an implementation for IBackendMockDataProvider
-      provide:'IBackendMockDataProvider',
-      useClass:BackendMockData
-    }
+      provide: 'IBackendMockDataProvider',
+      useClass: BackendMockData,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
