@@ -1,8 +1,5 @@
-import { ResponseCheckPoint } from "./response-checkpoint";
+import { ResponseCheckPoint } from './response-checkpoint';
 
-
-
-export interface IBackendMockDataProvider{
-
-    getAllInteractions():ResponseCheckPoint[];
+export interface IBackendMockDataProvider {
+  getAllInteractions(): ResponseCheckPoint[];
 }
