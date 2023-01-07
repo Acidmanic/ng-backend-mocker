@@ -1,71 +1,70 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
-import { Inject, Injectable, Optional } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { IBackendMockDataProvider } from "./ibackend-mockdata-provider";
-
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpHeaders,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { IBackendMockDataProvider } from './ibackend-mockdata-provider';
 
 @Injectable()
 export class ApiMockHttpInterceptor implements HttpInterceptor {
+  constructor(
+    @Inject('IBackendMockDataProvider')
+    private backend: IBackendMockDataProvider,
+    @Optional() @Inject('env') private environment
+  ) {
+    console.log('Environment: ', environment);
+  }
 
-
-    constructor(
-        @Inject('IBackendMockDataProvider') private backend: IBackendMockDataProvider,
-        @Optional() @Inject('env') private environment
-    ) {
-        console.log('Environment: ',environment);
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    if (this.noMock()) {
+      return next.handle(req);
     }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const interactions = this.backend.getAllInteractions();
 
+    for (const key in interactions) {
+      const int = interactions[key];
 
-        if (this.noMock()) {
+      if (int.accepts(req)) {
+        var handler = new Subject<HttpEvent<any>>();
 
-            return next.handle(req);
-        }
+        console.info('Found a response interaction.');
 
-        const interactions = this.backend.getAllInteractions();
+        var response = new HttpResponse({
+          body: int.responseBody,
+          headers: int.responseHeaders,
+          status: int.responseCode,
+          url: req.url,
+        });
 
-        for (const key in interactions) {
+        setTimeout(() => {
+          handler.next(response);
+          handler.complete();
+        }, 100);
 
-            const int = interactions[key];
-
-            if (int.accepts(req)) {
-
-                var handler = new Subject<HttpEvent<any>>();
-
-                console.info("Found a response interaction.");
-
-                var response = new HttpResponse({
-                    body: int.responseBody,
-                    headers: int.responseHeaders,
-                    status: int.responseCode,
-                    url: req.url
-                });
-
-                setTimeout(() => {
-                    handler.next(response);
-                    handler.complete();
-                }, 100);
-
-                return handler;
-            }
-        }
-
-        console.log('redirected to real path');
-        
-        return next.handle(req);
+        return handler;
+      }
     }
 
+    console.log('redirected to real path');
 
+    return next.handle(req);
+  }
 
-    private noMock(): boolean {
+  private noMock(): boolean {
+    const envAny: any = this.environment;
 
-        const envAny: any = this.environment;
-
-        if (envAny?.mockBackend) {
-
-            return false;
-        }
-        return true;
+    if (envAny?.mockBackend) {
+      return false;
     }
+    return true;
+  }
 }
