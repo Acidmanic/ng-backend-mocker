@@ -1,3 +1,11 @@
+## 0.1.4
+
+- update to angular 13.3.12
+
+## 0.1.3
+
+- fix inject environment in import module
+
 ## 0.1.2
 
 - update to angular 12.2.17
