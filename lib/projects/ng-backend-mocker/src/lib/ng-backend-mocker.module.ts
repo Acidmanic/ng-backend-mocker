@@ -15,7 +15,9 @@ import { ApiMockHttpInterceptor } from './api-mock-http-interceptor';
   ],
 })
 export class NgBackendMockerModule {
-  public static forRoot(environment?: any): ModuleWithProviders<any> {
+  public static forRoot(
+    environment?: any
+  ): ModuleWithProviders<NgBackendMockerModule> {
     return {
       ngModule: NgBackendMockerModule,
       providers: [

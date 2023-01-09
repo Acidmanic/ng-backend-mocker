@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  mockBackend:true
+  mockBackend: true,
 };
 
 /*
