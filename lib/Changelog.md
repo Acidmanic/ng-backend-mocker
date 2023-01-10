@@ -1,3 +1,7 @@
+## 0.1.3
+
+- correct inject environment
+
 ## 0.1.2
 
 - update to angular 12.2.17
