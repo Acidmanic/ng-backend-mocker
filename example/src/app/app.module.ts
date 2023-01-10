@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BackendMockData } from './backend-mock-data';
 import { NgBackendMockerModule } from 'ng-backend-mocker';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,7 +14,7 @@ import { NgBackendMockerModule } from 'ng-backend-mocker';
     HttpClientModule,
     // Importing the NgBackendMockerModule
     // passing the 'environment' object to the library.
-    NgBackendMockerModule,
+    NgBackendMockerModule.forRoot(environment),
   ],
   providers: [
     {
