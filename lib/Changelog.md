@@ -1,3 +1,7 @@
+## 0.1.6
+
+- update angular to 15.1.0
+
 ## 0.1.5
 
 - update angular to 14.2.12
