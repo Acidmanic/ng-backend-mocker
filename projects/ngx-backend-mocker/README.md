@@ -1,24 +1,19 @@
-# NgxBackendMocker
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0.
 
-## Code scaffolding
+ngx-backend-mocker
+===============
 
-Run `ng generate component component-name --project ngx-backend-mocker` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-backend-mocker`.
-> Note: Don't forget to add `--project ngx-backend-mocker` or else it will be added to the default project in your `angular.json` file. 
 
-## Build
 
-Run `ng build ngx-backend-mocker` to build the project. The build artifacts will be stored in the `dist/` directory.
+This package helps to mock apis for angular components, per end-point and depending on the request.
 
-## Publishing
+To use the package, you will install it using npm, and add the NgBackendMockerModule, 
+to your angular app. Then you will implement ```IBackendMockDataProvider``` which basically 
+is just supposed to return an array of ```ResponseCheckPoint``` objects. Each __ResponseCheckPoint__ 
+by defines a response for a response. 
 
-After building your library with `ng build ngx-backend-mocker`, go to the dist folder `cd dist/ngx-backend-mocker` and run `npm publish`.
+By default, __ResponseCheckPoint__ objects will respond to requests matching their uri and http method. 
+but this can be customized and you can put your own logic to determine whether to respond or not to a request by assigning a ```(HttpRequest,ResponseCheckPoint) => boolean``` method to the __requestSelector__ property of __ResponseCheckPoint__.
 
-## Running unit tests
 
-Run `ng test ngx-backend-mocker` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+For more details and examples please checkout [The github page](https://github.com/Acidmanic/ng-backend-mocker)
