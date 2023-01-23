@@ -1,0 +1,2 @@
+./compile
+(cd dist/ngx-backend-mocker && npm publish)
