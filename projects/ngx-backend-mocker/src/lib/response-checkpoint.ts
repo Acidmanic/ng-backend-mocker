@@ -11,7 +11,8 @@ export class ResponseCheckPoint {
 
   public responseHeaders: HttpHeaders = new HttpHeaders();
 
-  public requestSelector: (HttpRequest, ResponseCheckPoint) => boolean;
+  public requestSelector: (HttpRequest, ResponseCheckPoint) => boolean =
+      (req: HttpRequest<any>, rcp: ResponseCheckPoint) => true;
 
   constructor() {
     this.method = 'GET';
