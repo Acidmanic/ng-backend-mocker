@@ -11,7 +11,7 @@ export class ResponseCheckPoint {
 
   public responseHeaders: HttpHeaders = new HttpHeaders();
 
-  public requestSelector: (HttpRequest, ResponseCheckPoint) => boolean =
+  public requestSelector: (req:HttpRequest<any>, rcp:ResponseCheckPoint) => boolean =
       (req: HttpRequest<any>, rcp: ResponseCheckPoint) => true;
 
   constructor() {
@@ -49,7 +49,7 @@ export class ResponseCheckPoint {
   }
 
   public withSelector(
-    selector: (HttpRequest, ResponseCheckPoint) => boolean
+    selector: (req:HttpRequest<any>, rcp:ResponseCheckPoint) => boolean
   ): ResponseCheckPoint {
     this.requestSelector = selector;
     return this;
