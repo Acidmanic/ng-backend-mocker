@@ -15,9 +15,9 @@ export class ApiMockHttpInterceptor implements HttpInterceptor {
   constructor(
     @Inject('IBackendMockDataProvider')
     private backend: IBackendMockDataProvider,
-    @Optional() @Inject('env') private environment
+    @Optional() @Inject('env') private environment:any
   ) {
-    console.log('Environment: ', environment);
+    console.log('ngx-backend-mocker: Received Environment: ', environment);
   }
 
   intercept(
