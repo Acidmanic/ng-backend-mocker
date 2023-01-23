@@ -1,0 +1,11 @@
+{
+  "name": "ngx-backend-mocker",
+  "version": "1.0.0-b01",
+  "peerDependencies": {
+    "@angular/common": "^14.2.0",
+    "@angular/core": "^14.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
