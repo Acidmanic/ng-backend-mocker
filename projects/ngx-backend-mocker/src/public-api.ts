@@ -1,7 +1,7 @@
 /*
- * Public API Surface of ngx-backend-mocker
+ * Public API Surface of ng-backend-mocker
  */
 
-export * from './lib/ngx-backend-mocker.service';
-export * from './lib/ngx-backend-mocker.component';
 export * from './lib/ngx-backend-mocker.module';
+export * from './lib/ibackend-mockdata-provider';
+export * from './lib/response-checkpoint';

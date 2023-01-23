@@ -33,8 +33,8 @@ How to use
 For this to work, you should:
 
 1. install the npm package.
-2. import the NgBackendMockerModule, at your appModule.
-3. call NgBackendMockerModule.forRoot() method passing an object which contains a boolean property named __mockBackend__.
+2. import the NgxBackendMockerModule, at your appModule.
+3. call NgxBackendMockerModule.forRoot() method passing an object which contains a boolean property named __mockBackend__.
 4. implement the interface ```IBackendMockDataProvider``` and return an array of ```ResponseCheckpoint```s.
 5. in your appModule, provide your implementation so it can be injected in as ```IBackendMockDataProvider```. 
 
@@ -46,7 +46,7 @@ __Notes:__
  * A ```IBackendMockDataProvider```, is an interface with one method, which returns an array of 
     ```ResponseCheckpoint```. This is the way you tell the library which urls must be hijacked and how it should respond to them.
  * A ```ResponseCheckpoint```, is a data object, which keeps information like request-path, request-method, response-body ant etc.
- * The object being passed to NgBackendMockerModule.forRoot() method, can be any object. If this object is not null and it contains a boolean property named __mockBackend__ with the value 'True', it will enable the library. You can use your Environment object, to use this only with certain environments. 
+ * The object being passed to NgxBackendMockerModule.forRoot() method, can be any object. If this object is not null and it contains a boolean property named __mockBackend__ with the value 'True', it will enable the library. You can use your Environment object, to use this only with certain environments. 
  * Skipping the call to ```NgBackendMocker.forRoot({mockBackend:true})```, will not cause any problems or errors, but the library would consider that as a production setup and will not intercept requests. 
  * When mocking is disabled by settings the ```mockBackend``` to false, or omitting the ```NgBackendMocker.forRoot({mockBackend:true})``` call, and also when mocking is enabled but a request 
  is not registered with available ```ResponseCheckpoint``` objects in ```IBackendMockDataProvider```, the library will pass down the request/response through the pipeline and it will eventually make a real request to the real endpoint.
@@ -63,9 +63,9 @@ __AppModule__
     imports: [
         BrowserModule,
         HttpClientModule,
-        // Importing the NgBackendMockerModule
+        // Importing the NgxBackendMockerModule
         // passing the 'environment' object to the library.
-        NgBackendMockerModule.forRoot(environment)
+        NgxBackendMockerModule.forRoot(environment)
     ],
     providers: [
         {
